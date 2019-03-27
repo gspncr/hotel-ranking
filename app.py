@@ -4,11 +4,11 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
 from twilio.rest import Client
 from twilio.twiml.messaging_response import MessagingResponse
-print(os.environ['FS_DB'])
+print(os.environ['HS_DB'])
 print(os.environ['twilio_account_SID'])
 print(os.environ['twilio_auth_token'])
 app = Flask(__name__)
-app.debug = False
+app.debug = True
 app.config['SQLALCHEMY_DATABASE_URI']=os.environ['HS_DB']
 app.config['JSON_SORT_KEYS'] = False
 db = SQLAlchemy(app)

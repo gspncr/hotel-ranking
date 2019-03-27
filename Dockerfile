@@ -2,12 +2,14 @@ FROM python:alpine3.7
 RUN apk update && \
     apk add --virtual build-deps gcc python-dev musl-dev && \
     apk add postgresql-dev
-ADD app.py /facility-scoring/
-COPY templates /facility-scoring/templates/
-COPY static /facility-scoring/static/
-ENV FS_DB=
+ADD app.py /hotel-ranking/
+COPY templates /hotel-ranking/templates/
+COPY static /hotel-ranking/static/
+ENV HS_DB=
 ENV twilio_account_SID=
 ENV twilio_auth_token=
-RUN pip install Flask Flask-SQLAlchemy psycopg2 twilio
+ADD requirements.txt ./hotel-ranking/
+RUN pip install -r ./hotel-ranking/requirements.txt
 EXPOSE 8080
-CMD python3 ./facility-scoring/app.py
+WORKDIR /hotel-ranking/
+CMD python3 app.py
