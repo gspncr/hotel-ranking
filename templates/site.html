@@ -1,0 +1,57 @@
+<html>
+<head>
+  <title> 🏨 at {{oneSite.name}} </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="../static/css/normalize.css">
+  <link rel="stylesheet" href="../static/css/skeleton.css">
+</head>
+<body>
+    <div class="container">
+  <div class="one-half column" style="margin-top: 5%">
+  <h1>🏨 Hotel Ranking</h1>
+  <p> <a href="{{url_for('index')}}">Home</a> | <a href="{{url_for('bestOverall')}}">Best Overall</a> | <a href="{{url_for('bestValue')}}">Best Value</a> | <a href="{{url_for('mostClean')}}">Cleanest</a> | <a href="{{url_for('bestlocation')}}">Best location</a> | <a href="{{url_for('bestService')}}">Best service</a> </p>
+  <h4> Site: {{oneSite.name}} </h4>
+  <h5> Score card for {{oneSite.name}}: </h5>
+  <li> {{oneSite.name}} has an overall score of <strong>{{oneSite.score}}</strong></li>
+  <li> {{oneSite.name}} has a value for money score of <strong>{{oneSite.value}}</strong></li>
+  <li> {{oneSite.name}} has a cleanliness score of <strong>{{oneSite.cleanliness}}</strong></li>
+  <li> {{oneSite.name}} has a location score of <strong>{{oneSite.location}}</strong></li>
+  <li> {{oneSite.name}} has a service score of <strong>{{oneSite.service}}</strong></li>
+  </div>
+  <div class="one-half column" style="margin-top: 5%">
+  <!--  <input type="text" placeholder="Search for a site.."><input type="submit" value="search" autocomplete="off"/> -->
+    <br><br>
+    <h5> Update {{oneSite.name}} </h5>
+
+    <form method="post" action="/update/{{oneSite.name}}">
+      <label> site name: </label>
+      <input id="site" name="site" type="text" value="{{oneSite.name}}" autocomplete="off"  readonly/>
+
+      <label> overall satisfaction score: </label>
+      <input id="score" name="score" type="range" min="0" max="10" value="{{oneSite.score}}" oninput="scoreOutput.value = score.value" />
+      <output name="scoreOutput" id="scoreOutput"> {{oneSite.score}} </output>
+
+      <label> value score: </label>
+      <input id="value" name="valueV" type="range" min="0" max="10" value="{{oneSite.value}}" oninput="valueOutput.value = valueV.value" />
+      <output name="valueOutput" id="valueOutput"> {{oneSite.value}} </output>
+
+      <label> cleanliness score: </label>
+      <input id="cleanliness" name="cleanliness" type="range" min="0" max="10" value="{{oneSite.cleanliness}}" oninput="cleanlinessOutput.value = cleanliness.value" />
+      <output name="cleanlinessOutput" id="cleanlinessOutput"> {{oneSite.cleanliness}} </output>
+
+      <label> location score: </label>
+      <input id="location" name="location" type="range" min="0" max="10" value="{{oneSite.location}}" oninput="locationOutput.value = location.value" />
+      <output name="locationOutput" id="locationOutput"> {{oneSite.location}} </output>
+
+    <label> service score: </label>
+    <input id="service" name="service" type="range" min="0" max="10" value="{{oneSite.service}}" oninput="serviceOutput.value = service.value" />
+    <output name="serviceOutput" id="serviceOutput"> {{oneSite.service}} </output>
+  <br>
+      <input type="submit" />
+    </form>
+  </div>
+</div>
+</body>
+
+</html>

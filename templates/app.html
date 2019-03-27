@@ -1,0 +1,100 @@
+<html>
+<head>
+  <title> 🏨 Hotel Ranking </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="static/css/normalize.css">
+    <link rel="stylesheet" href="static/css/skeleton.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+    <div class="one-half column" style="margin-top: 5%">
+    <h1>🏨 Hotel Ranking</h1>
+    <p> <a href="{{url_for('index')}}">Home</a> | <a href="{{url_for('bestOverall')}}">Best Overall</a> | <a href="{{url_for('bestValue')}}">Best Value</a> | <a href="{{url_for('mostClean')}}">Cleanest</a> | <a href="{{url_for('bestlocation')}}">Best location</a> | <a href="{{url_for('bestService')}}">Best service</a> </p>
+    <h5> A system for scoring hotels.</h5>
+    {% if entries %} <p>There are entries for {{entries}} hotels, wow!<br> The latest entry is for {{latest.name}} with a score of {{latest.score}}!</p>{% endif %}
+    </div>
+  <!--    <div class="one-half column" style="margin-top: 5%">
+    <input type="text" placeholder="Search for a site.."><input type="submit" value="search" autocomplete="off"/>
+    </div>-->
+    </div>
+    <div class="row">
+      <div class="one-half column" style="margin-top: 0%">
+      {% if entries %}
+        <h3> Submit a hotel:</h3>
+
+        <form method="post" action="/new-site">
+          <label> hotel name: </label>
+          <input id="site" name="site" type="text" autocomplete="off" />
+
+          <label> overall satisfaction score: </label>
+          <input id="score" name="score" type="range" min="0" max="10" value="5" oninput="scoreOutput.value = score.value" />
+          <output name="scoreOutput" id="scoreOutput"> 5 </output>
+
+          <label> value score: </label>
+          <input id="value" name="valueV" type="range" min="0" max="10" value="5" oninput="valueOutput.value = valueV.value" />
+          <output name="valueOutput" id="valueOutput"> 5 </output>
+
+          <label> value for money score: </label>
+          <input id="cleanliness" name="cleanliness" type="range" min="0" max="10" value="5" oninput="cleanlinessOutput.value = cleanliness.value" />
+          <output name="cleanlinessOutput" id="cleanlinessOutput"> 5 </output>
+
+          <label> location score: </label>
+          <input id="location" name="location" type="range" min="0" max="10" value="5" oninput="locationOutput.value = location.value" />
+          <output name="locationOutput" id="locationOutput"> 5 </output>
+
+        <label> service score: </label>
+        <input id="service" name="service" type="range" min="0" max="10" value="5" oninput="serviceOutput.value = service.value" />
+        <output name="serviceOutput" id="serviceOutput"> 5 </output>
+      <br>
+          <input type="submit" />
+        </form>
+        {% endif %}
+    </div>
+
+    <div class="one-half column" style="margin-top: 0%">
+      {% if entries %}<h3>  Latest entries are:</h3>{% endif %}
+      {% if cleanest %}<h3> Cleanest hotels are:</h3>{% endif %}
+      {% if value %}<h3> Best value hotels are:</h3>{% endif %}
+      {% if location %}<h3> Best locations are:</h3>{% endif %}
+      {% if service %}<h3> Best service hotels are:</h3>{% endif %}
+      <ol>
+        {% if entries %}
+          {% for site in refSite|sort(attribute='score', reverse = True) %}
+            <li> <a href="/site/{{site.name}}">{{site.name}}</a> has score of {{site.score}} </li>
+          {% endfor %}
+        {% endif %}
+        {% if overall %}
+          {% for site in refSite|sort(attribute='score', reverse = True) %}
+            <li> <a href="/site/{{site.name}}">{{site.name}}</a> has score of {{site.score}} </li>
+          {% endfor %}
+        {% endif %}
+        {% if cleanest %}
+          {% for site in refSite|sort(attribute='cleanliness', reverse = True) %}
+            <li> <a href="/site/{{site.name}}">{{site.name}}</a> has score of {{site.cleanliness}} </li>
+          {% endfor %}
+        {% endif %}
+        {% if value %}
+          {% for site in refSite|sort(attribute='value', reverse = True) %}
+            <li> <a href="/site/{{site.name}}">{{site.name}}</a> has score of {{site.value}} </li>
+          {% endfor %}
+        {% endif %}
+        {% if location %}
+          {% for site in refSite|sort(attribute='location', reverse = True) %}
+            <li> <a href="/site/{{site.name}}">{{site.name}}</a> has score of {{site.location}} </li>
+          {% endfor %}
+        {% endif %}
+        {% if service %}
+          {% for site in refSite|sort(attribute='service', reverse = True) %}
+            <li> <a href="/site/{{site.name}}">{{site.name}}</a> has score of {{site.service}} </li>
+          {% endfor %}
+        {% endif %}
+    </ol>
+    </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
