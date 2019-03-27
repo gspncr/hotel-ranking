@@ -8,7 +8,7 @@ print(os.environ['FS_DB'])
 print(os.environ['twilio_account_SID'])
 print(os.environ['twilio_auth_token'])
 app = Flask(__name__)
-app.debug = True
+app.debug = False
 app.config['SQLALCHEMY_DATABASE_URI']=os.environ['HS_DB']
 app.config['JSON_SORT_KEYS'] = False
 db = SQLAlchemy(app)
@@ -124,6 +124,9 @@ def newsite():
     except exc.IntegrityError as e:
         e = "Site already exists!"
         return render_template('error.html', error=e)
+    except:
+        e = "Site already exists!"
+        return render_template('error.html', error=e)
 
 @app.route('/api/new', methods=['GET','POST'])
 def apiNewsite():
@@ -141,7 +144,7 @@ def apiUpdateSite(sitename):
         db.session.query(Site).filter_by(name=sitename).update({'score': request.json.get('score'), 'value': request.json.get('value'), 'cleanliness': request.json.get('cleanliness'), 'location': request.json.get('location'), 'service': request.json.get('service')})
         db.session.commit()
         return jsonify("site updated")
-    except exc.IntegrityError as e:
+    except (exc.IntegrityError, werkzeug.routing.BuildError) as e:
         e = "unhandled"
         return jsonify("site does not exist or other error")
 
