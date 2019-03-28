@@ -61,7 +61,7 @@
       {% if service %}<h3> Best service hotels are:</h3>{% endif %}
       <ol>
         {% if entries %}
-          {% for site in refSite|sort(attribute='score', reverse = True) %}
+          {% for site in refSite|sort(attribute='id', reverse = True) %}
             <li> <a href="/site/{{site.name}}">{{site.name}}</a> has score of {{site.score}} </li>
           {% endfor %}
         {% endif %}

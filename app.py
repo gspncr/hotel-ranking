@@ -43,7 +43,7 @@ class Site(db.Model):
 
 @app.route('/')
 def index():
-    refSite = Site.query.limit(10).all()
+    refSite = Site.query.order_by(Site.id.desc()).limit(10).all()
     entries = Site.query.count()
     latest = Site.query.order_by(Site.id.desc()).first()
     return render_template('app.html', refSite=refSite, entries=entries, latest=latest)
