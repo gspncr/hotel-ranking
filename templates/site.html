@@ -11,7 +11,7 @@
   <div class="one-half column" style="margin-top: 5%">
   <h1>🏨 Hotel Ranking</h1>
   <p> <a href="{{url_for('index')}}">Home</a> | <a href="{{url_for('bestOverall')}}">Best Overall</a> | <a href="{{url_for('bestValue')}}">Best Value</a> | <a href="{{url_for('mostClean')}}">Cleanest</a> | <a href="{{url_for('bestlocation')}}">Best location</a> | <a href="{{url_for('bestService')}}">Best service</a> </p>
-  <h4> Site: {{oneSite.name}} </h4>
+  <h4> {{oneSite.name}} </h4>
   <h5> Score card for {{oneSite.name}}: </h5>
   <li> {{oneSite.name}} has an overall score of <strong>{{oneSite.score}}</strong></li>
   <li> {{oneSite.name}} has a value for money score of <strong>{{oneSite.value}}</strong></li>
@@ -25,7 +25,7 @@
     <h5> Update {{oneSite.name}} </h5>
 
     <form method="post" action="/update/{{oneSite.name}}">
-      <label> site name: </label>
+      <label> hotel name: </label>
       <input id="site" name="site" type="text" value="{{oneSite.name}}" autocomplete="off"  readonly/>
 
       <label> overall satisfaction score: </label>
